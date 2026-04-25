@@ -15,3 +15,9 @@ SECRET_KEY = base.env(
     default="django-insecure-dev-only-key-change-me",
 )
 ALLOWED_HOSTS = base.env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost"])
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}

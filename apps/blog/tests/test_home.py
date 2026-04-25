@@ -1,6 +1,6 @@
 import pytest
-from django.utils import timezone
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.html import escape
 
 from apps.blog.models import Post

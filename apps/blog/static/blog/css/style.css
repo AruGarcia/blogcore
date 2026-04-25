@@ -1,0 +1,371 @@
+:root {
+    --bg: #ffffff;
+    --surface: #f5f3ef;
+    --surface-2: #ffffff;
+    --text: #0f1720;
+    --muted: #6f7782;
+    --line: #ece8e1;
+    --accent: #111111;
+    --shadow: none;
+    --radius-xl: 1.75rem;
+    --radius-lg: 1.4rem;
+}
+
+body {
+    font-family: "Manrope", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.page-shell {
+    max-width: 1380px;
+}
+
+.site-nav {
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--line);
+}
+
+.brand-mark {
+    letter-spacing: -0.06em;
+    font-weight: 800;
+    font-size: 1.45rem;
+}
+
+.brand-mark span {
+    color: inherit;
+}
+
+.nav-link {
+    color: var(--muted);
+    font-weight: 500;
+    padding-inline: 1rem !important;
+}
+
+.nav-link.active {
+    color: var(--text);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: var(--text);
+}
+
+.btn-dark-soft {
+    background: #111111;
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 0.85rem 1.35rem;
+    font-weight: 700;
+    border: none;
+}
+
+.btn-dark-soft:hover,
+.btn-dark-soft:focus {
+    background: #242424;
+    color: #ffffff;
+}
+
+.btn-light-soft {
+    background: #f5f5f5;
+    border-radius: 999px;
+    padding: 0.85rem 1.35rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+
+.breadcrumb-shell {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.breadcrumb-link,
+.breadcrumb-current,
+.breadcrumb-separator {
+    color: var(--muted);
+}
+
+.breadcrumb-separator {
+    margin-inline: 0.65rem;
+}
+
+.hero-card,
+.article-card,
+.cta-panel {
+    border: 0;
+    box-shadow: none;
+}
+
+.blog-heading-shell {
+    padding-top: 4.75rem;
+    padding-bottom: 3.5rem;
+}
+
+.blog-page-title {
+    letter-spacing: -0.07em;
+    font-size: clamp(3.2rem, 5vw, 5rem);
+    line-height: 0.95;
+    font-weight: 700;
+}
+
+.hero-card {
+    overflow: visible;
+    border-radius: 0;
+    background: transparent;
+}
+
+.hero-media {
+    display: block;
+    min-height: 476px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1.25rem;
+    box-shadow: 0 20px 50px rgba(15, 23, 32, 0.12);
+}
+
+.hero-copy {
+    padding: 2rem 2rem 2rem 4rem;
+}
+
+.hero-title,
+.article-title,
+.cta-title,
+.archive-title {
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    font-weight: 700;
+}
+
+.hero-title {
+    font-size: clamp(2.4rem, 3.5vw, 3.85rem);
+    max-width: 13ch;
+}
+
+.article-card {
+    background: var(--surface-2);
+    border-radius: var(--radius-lg);
+    overflow: visible;
+    height: auto;
+}
+
+.article-media {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 1.25rem;
+    box-shadow: 0 18px 38px rgba(15, 23, 32, 0.12);
+}
+
+.article-body {
+    padding: 1.1rem 0 0;
+    overflow: visible;
+}
+
+.article-title {
+    font-size: 1.15rem;
+    line-height: 1.2;
+}
+
+.hero-date,
+.article-date,
+.footer-link,
+.section-copy {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    overflow: visible;
+    display: block;
+    max-height: none;
+}
+
+.hero-button {
+    background: #f3f3f3;
+}
+
+.article-link {
+    display: block;
+}
+
+.article-link:hover .article-title,
+.article-link:focus .article-title {
+    color: #000000;
+}
+
+.archive-heading {
+    margin-bottom: 2rem;
+}
+
+.archive-title {
+    font-size: clamp(2.25rem, 3vw, 3rem);
+}
+
+.cta-panel {
+    background: var(--surface);
+    border-radius: 1.75rem;
+    padding: 2.3rem 2.5rem;
+}
+
+.cta-title {
+    font-size: clamp(1.55rem, 2.2vw, 2.35rem);
+    max-width: 10ch;
+}
+
+.footer-shell {
+    border-top: 0;
+}
+
+.footer-heading {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.footer-link {
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    transition: color 180ms ease;
+}
+
+.footer-link:hover,
+.footer-link:focus {
+    color: var(--text);
+}
+
+.eyebrow {
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.article-detail-shell {
+    padding-top: 4rem;
+    padding-bottom: 5rem;
+}
+
+.post-detail-card {
+    background: var(--surface-2);
+}
+
+.post-detail-title {
+    font-size: clamp(2.6rem, 4vw, 4.6rem);
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+    font-weight: 700;
+    max-width: 14ch;
+}
+
+.post-detail-lead {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 56ch;
+}
+
+.post-meta {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.post-detail-image {
+    display: block;
+    width: 100%;
+    min-height: 520px;
+    object-fit: cover;
+    border-radius: 1.5rem;
+    box-shadow: 0 24px 60px rgba(15, 23, 32, 0.14);
+}
+
+.post-detail-body {
+    font-size: 1.06rem;
+    line-height: 1.9;
+    color: #202833;
+    max-width: 68ch;
+}
+
+.post-detail-body p {
+    margin-bottom: 1.35rem;
+}
+
+.post-detail-sidebar {
+    position: sticky;
+    top: 6.5rem;
+}
+
+.detail-side-card {
+    background: var(--surface);
+    border-radius: 1.4rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.detail-side-label {
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+}
+
+.detail-side-value,
+.related-article-title {
+    color: var(--text);
+    font-weight: 700;
+}
+
+.related-article {
+    padding: 0.85rem 0;
+    border-top: 1px solid rgba(15, 23, 32, 0.08);
+}
+
+.related-article:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.related-article-date {
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+@media (max-width: 991.98px) {
+    .blog-heading-shell {
+        padding-top: 3.2rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .hero-media {
+        min-height: 320px;
+    }
+
+    .hero-copy {
+        padding: 2rem 0 0;
+    }
+
+    .cta-panel {
+        padding: 1.8rem 1.5rem;
+    }
+
+    .article-detail-shell {
+        padding-top: 2.5rem;
+    }
+
+    .post-detail-image {
+        min-height: 320px;
+    }
+
+    .post-detail-sidebar {
+        position: static;
+    }
+}

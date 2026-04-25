@@ -1,74 +1,30 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
-FEATURED_ARTICLE = {
-    "title": "Best Pricing Strategies for Pilates Studios in 2026",
-    "date": "Apr 22, 2026",
-    "category": "Featured story",
-    "image": (
-        "https://images.pexels.com/photos/6311389/pexels-photo-6311389.jpeg"
-        "?auto=compress&cs=tinysrgb&w=1400"
-    ),
-    "excerpt": (
-        "A practical editorial look at pricing models, positioning, and packaging for "
-        "boutique fitness businesses that want premium margins."
-    ),
-}
-
-ARTICLES = [
-    {
-        "title": "6 Principles of Pilates (Complete Guide for 2026)",
-        "date": "Apr 17, 2026",
-        "image": (
-            "https://images.pexels.com/photos/6303444/pexels-photo-6303444.jpeg"
-            "?auto=compress&cs=tinysrgb&w=900"
-        ),
-    },
-    {
-        "title": "How Much Does It Cost to Open a CrossFit Gym in 2026",
-        "date": "Apr 15, 2026",
-        "image": (
-            "https://images.pexels.com/photos/7901500/pexels-photo-7901500.jpeg"
-            "?auto=compress&cs=tinysrgb&w=900"
-        ),
-    },
-    {
-        "title": "Top 10 Pilates Studio Design Ideas for 2026",
-        "date": "Apr 14, 2026",
-        "image": (
-            "https://images.pexels.com/photos/6303449/pexels-photo-6303449.jpeg"
-            "?auto=compress&cs=tinysrgb&w=900"
-        ),
-    },
-    {
-        "title": "Best Mindbody Alternatives in 2026",
-        "date": "Apr 10, 2026",
-        "image": (
-            "https://images.pexels.com/photos/7900679/pexels-photo-7900679.jpeg"
-            "?auto=compress&cs=tinysrgb&w=900"
-        ),
-    },
-    {
-        "title": "300+ Pole Dance Studio Name Ideas to Inspire Your New Studio",
-        "date": "Apr 9, 2026",
-        "image": (
-            "https://images.pexels.com/photos/6311479/pexels-photo-6311479.jpeg"
-            "?auto=compress&cs=tinysrgb&w=900"
-        ),
-    },
-    {
-        "title": "How to Get Your First 50 Clients as a Pilates Studio in 2026",
-        "date": "Feb 28, 2026",
-        "image": (
-            "https://images.pexels.com/photos/6303489/pexels-photo-6303489.jpeg"
-            "?auto=compress&cs=tinysrgb&w=900"
-        ),
-    },
-]
+from .models import Post
 
 
 def home(request):
+    posts = Post.objects.filter(published=True)
+    featured_article = posts.filter(is_featured=True).first() or posts.first()
+    articles = posts.order_by("-published_at", "-created_at")
+
     context = {
-        "featured_article": FEATURED_ARTICLE,
-        "articles": ARTICLES,
+        "featured_article": featured_article,
+        "articles": articles,
     }
     return render(request, "blog/home.html", context)
+
+
+def post_detail(request, slug):
+    post = get_object_or_404(Post, slug=slug, published=True)
+    related_articles = (
+        Post.objects.filter(published=True)
+        .exclude(pk=post.pk)
+        .order_by("-published_at", "-created_at")[:3]
+    )
+
+    context = {
+        "post": post,
+        "related_articles": related_articles,
+    }
+    return render(request, "blog/post_detail.html", context)

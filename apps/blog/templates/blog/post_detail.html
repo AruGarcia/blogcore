@@ -1,0 +1,73 @@
+{% extends "blog.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<main>
+    <section class="container page-shell">
+        <div class="breadcrumb-shell">
+            <a class="breadcrumb-link" href="/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <a class="breadcrumb-link" href="/">Blog</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">{{ post.title }}</span>
+        </div>
+    </section>
+
+    <section class="container page-shell article-detail-shell">
+        <div class="row g-5 align-items-start">
+            <div class="col-lg-8">
+                <article class="post-detail-card">
+                    <p class="eyebrow detail-eyebrow mb-3">Article</p>
+                    <h1 class="post-detail-title mb-4">{{ post.title }}</h1>
+                    {% if post.excerpt %}
+                        <p class="post-detail-lead mb-4">{{ post.excerpt }}</p>
+                    {% endif %}
+                    <div class="post-meta mb-4">
+                        <span>{{ post.published_at|date:"M d, Y" }}</span>
+                    </div>
+                    <img
+                        class="post-detail-image"
+                        src="{{ post.cover_image|default:post.fallback_cover_image }}"
+                        alt="{{ post.title }}"
+                        onerror="this.onerror=null;this.src='{{ post.fallback_cover_image }}';"
+                    >
+                    <div class="post-detail-body mt-5">
+                        {{ post.content|linebreaks }}
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-4">
+                <aside class="post-detail-sidebar">
+                    <div class="detail-side-card">
+                        <p class="detail-side-label mb-2">Published</p>
+                        <p class="detail-side-value mb-0">{{ post.published_at|date:"F d, Y" }}</p>
+                    </div>
+                    <div class="detail-side-card">
+                        <p class="detail-side-label mb-3">More articles</p>
+                        {% for article in related_articles %}
+                            <a class="related-article d-block" href="{{ article.get_absolute_url }}">
+                                <p class="related-article-title mb-1">{{ article.title }}</p>
+                                <p class="related-article-date mb-0">{{ article.published_at|date:"M d, Y" }}</p>
+                            </a>
+                        {% empty %}
+                            <p class="section-copy mb-0">No other articles published yet.</p>
+                        {% endfor %}
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section id="newsletter" class="container page-shell py-5">
+        <div class="cta-panel d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-4">
+            <div>
+                <h2 class="cta-title mb-0">Manage bookings and payments easier</h2>
+            </div>
+            <div>
+                <a class="btn btn-dark-soft btn-lg" href="#">Get started</a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -3,32 +3,6 @@
 {% block title %}BlogCore Editorial{% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg sticky-top site-nav">
-    <div class="container page-shell py-3">
-        <a class="navbar-brand brand-mark" href="/">blog<span>core</span></a>
-        <button
-            class="navbar-toggler border-0 shadow-none"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNav"
-            aria-controls="mainNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav ms-lg-4 mb-3 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Solutions</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
-                <li class="nav-item"><a class="nav-link active" href="#featured">Blog</a></li>
-                <li class="nav-item"><a class="nav-link" href="#resources">Help</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
 <main>
     <section class="container page-shell">
         <div class="breadcrumb-shell">
@@ -43,23 +17,36 @@
     </section>
 
     <section id="featured" class="container page-shell pb-5">
-        <article class="hero-card">
-            <div class="row g-0 align-items-stretch">
-                <div class="col-lg-7">
-                    <div
-                        class="hero-media h-100"
-                        style="background-image: url('{{ featured_article.image }}');"
-                    ></div>
-                </div>
-                <div class="col-lg-5 d-flex align-items-center">
-                    <div class="hero-copy">
-                        <h2 class="hero-title mb-4">{{ featured_article.title }}</h2>
-                        <p class="hero-date mb-4">{{ featured_article.date }}</p>
-                        <a class="btn btn-light-soft hero-button" href="#articles">Read article</a>
+        {% if featured_article %}
+            <article class="hero-card">
+                <div class="row g-0 align-items-stretch">
+                    <div class="col-lg-7">
+                        <img
+                            class="hero-media"
+                            src="{{ featured_article.cover_image|default:featured_article.fallback_cover_image }}"
+                            alt="{{ featured_article.title }}"
+                            onerror="this.onerror=null;this.src='{{ featured_article.fallback_cover_image }}';"
+                        >
+                    </div>
+                    <div class="col-lg-5 d-flex align-items-center">
+                        <div class="hero-copy">
+                            <h2 class="hero-title mb-4">{{ featured_article.title }}</h2>
+                            <p class="hero-date mb-4">{{ featured_article.published_at|date:"M d, Y" }}</p>
+                            <a class="btn btn-light-soft hero-button" href="{{ featured_article.get_absolute_url }}">Read article</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </article>
+            </article>
+        {% else %}
+            <article class="hero-card">
+                <div class="hero-copy">
+                    <h2 class="hero-title mb-4">Seu blog ainda nao tem publicacoes.</h2>
+                    <p class="section-copy mb-0">
+                        Crie a primeira publicacao no admin do Django para ela aparecer aqui.
+                    </p>
+                </div>
+            </article>
+        {% endif %}
     </section>
 
     <section id="articles" class="container page-shell py-5">
@@ -71,12 +58,25 @@
             {% for article in articles %}
                 <div class="col-md-6 col-xl-4">
                     <article class="article-card">
-                        <img class="article-media" src="{{ article.image }}" alt="{{ article.title }}">
-                        <div class="article-body">
-                            <h3 class="article-title mb-3">{{ article.title }}</h3>
-                            <p class="article-date mb-0">{{ article.date }}</p>
-                        </div>
+                        <a href="{{ article.get_absolute_url }}" class="article-link">
+                            <img
+                                class="article-media"
+                                src="{{ article.cover_image|default:article.fallback_cover_image }}"
+                                alt="{{ article.title }}"
+                                onerror="this.onerror=null;this.src='{{ article.fallback_cover_image }}';"
+                            >
+                            <div class="article-body">
+                                <h3 class="article-title mb-3">{{ article.title }}</h3>
+                                <p class="article-date mb-0">{{ article.published_at|date:"M d, Y" }}</p>
+                            </div>
+                        </a>
                     </article>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="section-copy mb-0">
+                        Nenhuma outra publicacao publicada ainda.
+                    </p>
                 </div>
             {% endfor %}
         </div>
@@ -93,33 +93,4 @@
         </div>
     </section>
 </main>
-
-<footer id="resources" class="footer-shell mt-5">
-    <div class="container page-shell py-5">
-        <div class="row g-4">
-            <div class="col-lg-3">
-                <a class="brand-mark d-inline-block mb-3" href="/">blog<span>core</span></a>
-            </div>
-            <div class="col-6 col-lg-3">
-                <h3 class="footer-heading">Solutions</h3>
-                <a class="footer-link" href="#">Pilates instructor software</a><br>
-                <a class="footer-link" href="#">Yoga studio software</a><br>
-                <a class="footer-link" href="#">Gym software</a><br>
-                <a class="footer-link" href="#">Personal trainer software</a>
-            </div>
-            <div class="col-6 col-lg-3">
-                <h3 class="footer-heading">Company</h3>
-                <a class="footer-link" href="#">Contact us</a><br>
-                <a class="footer-link" href="#">Privacy Policy</a><br>
-                <a class="footer-link" href="#">Terms of Service</a>
-            </div>
-            <div class="col-6 col-lg-3">
-                <h3 class="footer-heading">Resources</h3>
-                <a class="footer-link" href="#featured">Blog</a><br>
-                <a class="footer-link" href="#">Help</a><br>
-                <a class="footer-link" href="#">Pilates terms</a>
-            </div>
-        </div>
-    </div>
-</footer>
 {% endblock %}

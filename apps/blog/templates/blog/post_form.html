@@ -1,0 +1,118 @@
+{% extends "blog.html" %}
+
+{% block title %}{{ form_title }}{% endblock %}
+
+{% block extra_head %}
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+<main>
+    <section class="container page-shell">
+        <div class="breadcrumb-shell">
+            <a class="breadcrumb-link" href="/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <a class="breadcrumb-link" href="/">Blog</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">New post</span>
+        </div>
+    </section>
+
+    <section class="container page-shell article-detail-shell">
+        <div class="post-form-shell">
+            <div class="post-form-intro mb-5">
+                <p class="eyebrow mb-3">Publishing</p>
+                <h1 class="post-detail-title mb-3">{{ form_title }}</h1>
+                <p class="post-detail-lead mb-0">
+                    {{ form_intro }}
+                </p>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" novalidate class="post-form-card">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="blog-form-errors mb-4">
+                        {% for error in form.non_field_errors %}
+                            <p class="mb-0">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="row g-4">
+                    <div class="col-12">
+                        <label class="blog-form-label" for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                        {{ form.title }}
+                        {% for error in form.title.errors %}
+                            <p class="blog-field-error mb-0 mt-2">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-12">
+                        <label class="blog-form-label" for="{{ form.excerpt.id_for_label }}">{{ form.excerpt.label }}</label>
+                        {{ form.excerpt }}
+                        {% for error in form.excerpt.errors %}
+                            <p class="blog-field-error mb-0 mt-2">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-12">
+                        <label class="blog-form-label" for="{{ form.cover_image.id_for_label }}">{{ form.cover_image.label }}</label>
+                        {{ form.cover_image }}
+                        {% for error in form.cover_image.errors %}
+                            <p class="blog-field-error mb-0 mt-2">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-12">
+                        <label class="blog-form-label" for="{{ form.cover_image_file.id_for_label }}">{{ form.cover_image_file.label }}</label>
+                        {{ form.cover_image_file }}
+                        <p class="section-copy mt-2 mb-0">
+                            Use a URL or upload a local file. If both are provided, the uploaded file takes priority.
+                        </p>
+                        {% for error in form.cover_image_file.errors %}
+                            <p class="blog-field-error mb-0 mt-2">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-12">
+                        <label class="blog-form-label" for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
+                        <div class="blog-editor-card">
+                            {{ form.content }}
+                        </div>
+                        {% for error in form.content.errors %}
+                            <p class="blog-field-error mb-0 mt-2">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="blog-form-label" for="{{ form.published_at.id_for_label }}">{{ form.published_at.label }}</label>
+                        {{ form.published_at }}
+                        {% for error in form.published_at.errors %}
+                            <p class="blog-field-error mb-0 mt-2">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-md-6 d-flex align-items-end">
+                        <div class="blog-check-stack w-100">
+                            <label class="blog-check-row">
+                                {{ form.published }}
+                                <span>{{ form.published.label }}</span>
+                            </label>
+                            <label class="blog-check-row">
+                                {{ form.is_featured }}
+                                <span>{{ form.is_featured.label }}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-form-actions mt-5">
+                    <button type="submit" class="btn btn-dark-soft">{{ submit_label }}</button>
+                    <a href="{% if post %}{{ post.get_absolute_url }}{% else %}/{% endif %}" class="btn btn-light-soft">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}

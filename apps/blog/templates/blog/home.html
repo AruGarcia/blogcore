@@ -23,7 +23,7 @@
                     <div class="col-lg-7">
                         <img
                             class="hero-media"
-                            src="{{ featured_article.cover_image|default:featured_article.fallback_cover_image }}"
+                            src="{{ featured_article.display_cover_image }}"
                             alt="{{ featured_article.title }}"
                             onerror="this.onerror=null;this.src='{{ featured_article.fallback_cover_image }}';"
                         >
@@ -40,9 +40,9 @@
         {% else %}
             <article class="hero-card">
                 <div class="hero-copy">
-                    <h2 class="hero-title mb-4">Seu blog ainda nao tem publicacoes.</h2>
+                    <h2 class="hero-title mb-4">Your blog does not have any published articles yet.</h2>
                     <p class="section-copy mb-0">
-                        Crie a primeira publicacao no admin do Django para ela aparecer aqui.
+                        Create your first post and it will appear here.
                     </p>
                 </div>
             </article>
@@ -61,7 +61,7 @@
                         <a href="{{ article.get_absolute_url }}" class="article-link">
                             <img
                                 class="article-media"
-                                src="{{ article.cover_image|default:article.fallback_cover_image }}"
+                                src="{{ article.display_cover_image }}"
                                 alt="{{ article.title }}"
                                 onerror="this.onerror=null;this.src='{{ article.fallback_cover_image }}';"
                             >
@@ -75,7 +75,7 @@
             {% empty %}
                 <div class="col-12">
                     <p class="section-copy mb-0">
-                        Nenhuma outra publicacao publicada ainda.
+                        No other published articles yet.
                     </p>
                 </div>
             {% endfor %}

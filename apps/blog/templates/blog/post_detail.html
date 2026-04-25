@@ -28,12 +28,15 @@
                     </div>
                     <img
                         class="post-detail-image"
-                        src="{{ post.cover_image|default:post.fallback_cover_image }}"
+                        src="{{ post.display_cover_image }}"
                         alt="{{ post.title }}"
                         onerror="this.onerror=null;this.src='{{ post.fallback_cover_image }}';"
                     >
-                    <div class="post-detail-body mt-5">
-                        {{ post.content|linebreaks }}
+                    <div class="post-detail-body ck-content mt-5">
+                        {{ post.content|safe }}
+                    </div>
+                    <div class="post-detail-actions mt-5">
+                        <a class="btn btn-light-soft" href="{% url 'post_update' slug=post.slug %}">Edit post</a>
                     </div>
                 </article>
             </div>

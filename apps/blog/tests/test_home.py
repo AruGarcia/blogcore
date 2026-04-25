@@ -69,7 +69,7 @@ def test_home_page_includes_featured_article_content(home_response, featured_pos
     content = home_response.content.decode()
 
     assert featured_post.title in content
-    assert escape(featured_post.cover_image) in content
+    assert escape(featured_post.display_cover_image) in content
 
 
 def test_home_page_exposes_articles_in_context(home_response, featured_post, posts):
@@ -86,7 +86,7 @@ def test_home_page_renders_all_article_cards(home_response, featured_post, posts
 
     for article in [featured_post, *posts]:
         assert article.title in content
-        assert escape(article.cover_image) in content
+        assert escape(article.display_cover_image) in content
 
 
 def test_home_page_uses_shared_header_and_footer(home_response):

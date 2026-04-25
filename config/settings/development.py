@@ -17,6 +17,9 @@ SECRET_KEY = base.env(
 ALLOWED_HOSTS = base.env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost"])
 
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },

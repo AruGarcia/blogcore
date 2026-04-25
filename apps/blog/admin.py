@@ -15,6 +15,6 @@ class PostAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Publicacao", {"fields": ("title", "slug", "excerpt", "content")}),
-        ("Exibicao", {"fields": ("cover_image", "is_featured")}),
+        ("Exibicao", {"fields": ("cover_image", "cover_image_file", "is_featured")}),
         ("Status", {"fields": ("published", "published_at")}),
     )

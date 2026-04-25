@@ -1,5 +1,6 @@
 import pytest
 from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.utils import timezone
 
 from apps.blog.models import Post
@@ -79,6 +80,39 @@ def test_post_fallback_cover_image_uses_default_when_missing():
     )
 
     assert post.fallback_cover_image == f"{settings.STATIC_URL}blog/img/posts/default/cover.jpg"
+
+
+@pytest.mark.django_db
+def test_post_display_cover_image_prefers_uploaded_file():
+    post = Post.objects.create(
+        title="Post com arquivo",
+        cover_image="https://example.com/cover.jpg",
+        cover_image_file=SimpleUploadedFile(
+            "cover.jpg",
+            (
+                b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00"
+                b"\x00\x00\x00\xff\xff\xff\x21\xf9\x04\x01\x00\x00\x00\x00"
+                b"\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3b"
+            ),
+            content_type="image/gif",
+        ),
+        content="Conteudo do artigo.",
+        published=True,
+    )
+
+    assert post.display_cover_image.startswith(f"{settings.MEDIA_URL}blog/covers/")
+
+
+@pytest.mark.django_db
+def test_post_display_cover_image_uses_url_when_no_uploaded_file():
+    post = Post.objects.create(
+        title="Post com url",
+        cover_image="https://example.com/cover.jpg",
+        content="Conteudo do artigo.",
+        published=True,
+    )
+
+    assert post.display_cover_image == "https://example.com/cover.jpg"
 
 
 @pytest.mark.django_db

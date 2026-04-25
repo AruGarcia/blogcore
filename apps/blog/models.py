@@ -12,6 +12,11 @@ class Post(models.Model):
     slug = models.SlugField("slug", unique=True, blank=True)
     excerpt = models.TextField("resumo", max_length=255, blank=True)
     cover_image = models.URLField("imagem de capa", blank=True)
+    cover_image_file = models.ImageField(
+        "arquivo da imagem de capa",
+        upload_to="blog/covers/%Y/%m/",
+        blank=True,
+    )
     content = models.TextField("conteudo")
     is_featured = models.BooleanField("destaque", default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -40,6 +45,14 @@ class Post(models.Model):
             return f"{settings.STATIC_URL}{relative_path.as_posix()}"
 
         return f"{settings.STATIC_URL}blog/img/posts/default/cover.jpg"
+
+    @property
+    def display_cover_image(self):
+        if self.cover_image_file:
+            return self.cover_image_file.url
+        if self.cover_image:
+            return self.cover_image
+        return self.fallback_cover_image
 
     def get_absolute_url(self):
         return reverse("post_detail", kwargs={"slug": self.slug})

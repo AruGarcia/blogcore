@@ -38,11 +38,20 @@
                     <li class="nav-item"><a class="nav-link" href="#">Solutions</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
                     <li class="nav-item"><a class="nav-link active" href="/">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'post_create' %}">New post</a></li>
                     <li class="nav-item"><a class="nav-link" href="#resources">Help</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    {% if messages %}
+        <div class="container page-shell pt-4">
+            {% for message in messages %}
+                <div class="blog-alert">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     {% block content %}{% endblock %}
 
@@ -79,5 +88,6 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"
     ></script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
